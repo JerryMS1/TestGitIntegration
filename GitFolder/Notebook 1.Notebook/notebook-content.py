@@ -23,8 +23,22 @@
 # CELL ********************
 
 # Welcome to your new notebook
-# Type here in the cell editor to add code!
- 
+display("Type here in the cell editor to add code!")
+
+# MARKDOWN ********************
+
+# Get csv file
+
+# CELL ********************
+
+import pandas as pd
+# Load data into pandas DataFrame from f"{mssparkutils.nbResPath}/builtin/1.5million_records_small.csv"
+df = pd.read_csv(f"{mssparkutils.nbResPath}/builtin/1.5million_records_small.csv")
+display(df.head(2))
+
+# MARKDOWN ********************
+
+# Get data from LH1 File 1.5million_records_small_SPO.csv
 
 # CELL ********************
 
@@ -32,7 +46,20 @@ df = spark.read.format("csv").option("header","true").load("abfss://JerryTest@dx
 # df now is a Spark DataFrame containing CSV data from "abfss://JerryTest@dxt-onelake.dfs.fabric.microsoft.com/LH1.Lakehouse/Files/1.5million_records_small_SPO.csv".
 display(df.head(5))
 
+# MARKDOWN ********************
+
+# Get data from LH3 Table publicholidays
+
 # CELL ********************
 
 df = spark.sql("SELECT * FROM LH3.dbo.publicholidays LIMIT 10")
+display(df.head(2))
+
+# MARKDOWN ********************
+
+# Get from WH
+
+# CELL ********************
+
+df = spark.sql("SELECT * FROM Warehouse1.dbo.Date LIMIT 10")
 display(df.head(2))
