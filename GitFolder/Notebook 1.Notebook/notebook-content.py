@@ -11,6 +11,9 @@
 # META       "known_lakehouses": [
 # META         {
 # META           "id": "83a72ddb-6437-48bd-b44c-89907df3b078"
+# META         },
+# META         {
+# META           "id": "950a1cb8-05a1-4061-8808-53327ff7e6b8"
 # META         }
 # META       ]
 # META     }
@@ -25,14 +28,11 @@
 
 # CELL ********************
 
-import pandas as pd
-# Load data into pandas DataFrame from f"{mssparkutils.nbResPath}/builtin/1.5million_records_small.csv"
-df = pd.read_csv(f"{mssparkutils.nbResPath}/builtin/1.5million_records_small.csv")
-display(df.head(10))
-
-
-# CELL ********************
-
 df = spark.read.format("csv").option("header","true").load("abfss://JerryTest@dxt-onelake.dfs.fabric.microsoft.com/LH1.Lakehouse/Files/1.5million_records_small_SPO.csv")
 # df now is a Spark DataFrame containing CSV data from "abfss://JerryTest@dxt-onelake.dfs.fabric.microsoft.com/LH1.Lakehouse/Files/1.5million_records_small_SPO.csv".
 display(df.head(5))
+
+# CELL ********************
+
+df = spark.sql("SELECT * FROM LH3.dbo.publicholidays LIMIT 10")
+display(df.head(2))
